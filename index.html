@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light dark">
+  <title>Secure Login</title>
+  <script type="module" src="/src/app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="panel" aria-labelledby="page-title">
+      <header class="header">
+        <div class="brand-mark" aria-hidden="true">S</div>
+        <div>
+          <p class="eyebrow">SECURE ACCESS</p>
+          <h1 id="page-title">Безопасный вход</h1>
+        </div>
+      </header>
+
+      <div id="guest-view" class="view">
+        <button id="open-register" class="button primary" type="button">Зарегистрироваться</button>
+
+        <div class="divider"><span>или войдите по QR</span></div>
+
+        <div class="qr-card">
+          <div id="qr-box" class="qr-box" aria-label="QR-код для входа">
+            <div class="qr-placeholder"></div>
+          </div>
+          <p id="qr-title" class="qr-title">Создаём QR…</p>
+          <p id="qr-countdown" class="muted">Обновляется автоматически каждые 2 минуты</p>
+          <button id="refresh-qr" class="button ghost small" type="button">Обновить QR</button>
+        </div>
+
+        <p class="muted center">Сканируйте код с телефона, где этот аккаунт уже открыт.</p>
+      </div>
+
+      <form id="register-view" class="view stack" hidden autocomplete="on">
+        <div class="view-head">
+          <button id="register-back" class="icon-button" type="button" aria-label="Назад">←</button>
+          <strong>Регистрация</strong>
+        </div>
+        <label class="field">
+          <span>Ник</span>
+          <input id="nickname" name="username" type="text" minlength="3" maxlength="32" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+        </label>
+        <label class="field">
+          <span>Пароль</span>
+          <input id="register-password" name="new-password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+        </label>
+        <p class="muted">Пароль не сохраняется на сервере. Он защищает локальный приватный ключ этого устройства.</p>
+        <button id="register-submit" class="button primary" type="submit">Создать аккаунт</button>
+      </form>
+
+      <div id="account-view" class="view" hidden>
+        <div class="signed-in">
+          <div class="check" aria-hidden="true">✓</div>
+          <div>
+            <strong>Вы вошли</strong>
+            <p id="account-device-state" class="muted"></p>
+          </div>
+        </div>
+        <div class="stack account-actions">
+          <button id="open-camera" class="button primary" type="button">Открыть камеру для QR</button>
+          <button id="logout" class="button secondary" type="button">Выйти с аккаунта</button>
+        </div>
+      </div>
+
+      <div id="camera-view" class="view" hidden>
+        <div class="view-head">
+          <button id="camera-back" class="icon-button" type="button" aria-label="Закрыть камеру">←</button>
+          <strong>Сканирование QR</strong>
+        </div>
+        <div class="camera-wrap">
+          <video id="camera-video" playsinline muted></video>
+          <div class="scan-frame" aria-hidden="true"></div>
+        </div>
+        <p id="camera-status" class="muted center">Наведите камеру на QR-код входа.</p>
+      </div>
+
+      <div id="phone-wait-view" class="view" hidden>
+        <div class="signed-in">
+          <div class="phone-icon" aria-hidden="true">↔</div>
+          <div>
+            <strong>QR отсканирован</strong>
+            <p class="muted">Аккаунт на этом телефоне не изменится.</p>
+          </div>
+        </div>
+        <div class="waiting-card">
+          <div class="spinner" aria-hidden="true"></div>
+          <strong>Ждём пароль на новом устройстве</strong>
+          <p id="phone-wait-status" class="muted center">Введите пароль на компьютере. Он придёт сюда только в зашифрованном виде.</p>
+        </div>
+      </div>
+
+      <form id="login-password-view" class="view stack" hidden autocomplete="on">
+        <div class="view-head">
+          <button id="login-cancel" class="icon-button" type="button" aria-label="Отмена">←</button>
+          <strong>Введите пароль</strong>
+        </div>
+        <div class="paired-note">
+          <span class="paired-dot" aria-hidden="true"></span>
+          <span>QR успешно отсканирован доверенным устройством</span>
+        </div>
+        <label class="field">
+          <span>Пароль</span>
+          <input id="login-password" type="password" minlength="12" maxlength="128" autocomplete="current-password" required>
+        </label>
+        <p class="muted">Пароль шифруется на этом устройстве и проверяется на телефоне. Cloudflare получает только шифротекст и результат проверки.</p>
+        <button id="login-submit" class="button primary" type="submit">Войти</button>
+      </form>
+
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
