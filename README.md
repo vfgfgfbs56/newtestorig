@@ -1,3 +1,4 @@
+deploy v7 reconnect
 # Secure QR Auth — Cloudflare Worker
 
 Версия под новый Cloudflare Workers Builds: один Worker обслуживает `/api/*`, а Vite-сборка из `dist/` разворачивается как Worker Static Assets.
